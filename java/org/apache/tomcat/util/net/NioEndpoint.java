@@ -489,6 +489,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
                     try {
                         // Accept the next incoming connection from the server
                         // socket
+                        System.out.println(getClass().getName() + "：监听Socket连接");
                         socket = serverSock.accept();
                     } catch (IOException ioe) {
                         // We didn't get a socket
@@ -835,6 +836,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
         public void run() {
             // Loop until destroy() is called
             while (true) {
+                System.out.println(getName() + ":Poller线程执行时间" + System.currentTimeMillis());
 
                 boolean hasEvents = false;
 

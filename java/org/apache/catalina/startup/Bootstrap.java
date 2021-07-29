@@ -249,6 +249,7 @@ public final class Bootstrap {
      */
     public void init() throws Exception {
 
+        //初始化类加载器
         initClassLoaders();
 
         Thread.currentThread().setContextClassLoader(catalinaLoader);

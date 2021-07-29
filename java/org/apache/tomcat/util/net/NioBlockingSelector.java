@@ -330,6 +330,7 @@ public class NioBlockingSelector {
         @Override
         public void run() {
             while (run) {
+                System.out.println(getName() + ":BlockPoller线程执行时间" + System.currentTimeMillis());
                 try {
                     events();
                     int keyCount = 0;
