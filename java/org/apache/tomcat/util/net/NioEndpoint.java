@@ -275,6 +275,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
             initializeConnectionLatch();
 
             // Start poller threads
+            //开启 Poller 线程
             pollers = new Poller[getPollerThreadCount()];
             for (int i=0; i<pollers.length; i++) {
                 pollers[i] = new Poller();
@@ -284,6 +285,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
                 pollerThread.start();
             }
 
+            //开启 Acceptors线程
             startAcceptorThreads();
         }
     }
@@ -424,6 +426,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
                 channel.setIOChannel(socket);
                 channel.reset();
             }
+            //tag 将Acceptor获取到的channel注册给Poller，Poller监听读写事件
             getPoller0().register(channel);
         } catch (Throwable t) {
             ExceptionUtils.handleThrowable(t);
@@ -510,6 +513,7 @@ public class NioEndpoint extends AbstractJsseEndpoint<NioChannel> {
                     if (running && !paused) {
                         // setSocketOptions() will hand the socket off to
                         // an appropriate processor if successful
+                        //tag 将SocketChannel注册给poller
                         if (!setSocketOptions(socket)) {
                             closeSocket(socket);
                         }
